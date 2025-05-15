@@ -70,6 +70,21 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-unfold"
+version = "0.57.0"
+description = "Modern Django admin theme for seamless interface development"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "django_unfold-0.57.0-py3-none-any.whl", hash = "sha256:a51b12c9d6ec6b46b459f5e4c74c3dc31211485c4914e2b49a251ba57531f22c"},
+    {file = "django_unfold-0.57.0.tar.gz", hash = "sha256:eb5fa8db77e84d1f2490e2d015c7d90699407c36183fe3ce451b54dc522770ed"},
+]
+
+[package.dependencies]
+django = ">=4.2"
+
+[[package]]
 name = "djangorestframework"
 version = "3.16.0"
 description = "Web APIs for Django, made easy."
@@ -555,4 +570,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11"
-content-hash = "5a8897053fb01e211f2f857ed977bd58f0e682addac9397225923f8edcd5b3c9"
+content-hash = "b0f571b5630213e06ecb206255528d0c4ce71c983a881ede14b300e0748e1e34"

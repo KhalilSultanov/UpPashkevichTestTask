@@ -31,6 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
+    'unfold',
+
     'django.contrib.auth',
     'django.contrib.admin',
     'django.contrib.contenttypes',
@@ -41,7 +44,8 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'drf_spectacular_sidecar',
 
-    'users'
+    'users',
+    'transactions',
 ]
 
 MIDDLEWARE = [
