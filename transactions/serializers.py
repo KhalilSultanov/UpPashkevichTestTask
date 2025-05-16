@@ -5,6 +5,9 @@ from transactions.services.categorizer import CATEGORY_KEYWORDS, categorize
 
 
 class TransactionStatsSerializer(serializers.Serializer):
+    """
+    Вывод статистики трат юзера
+    """
     total_spent = serializers.DecimalField(max_digits=12, decimal_places=2)
     by_category = serializers.DictField(child=serializers.DecimalField(max_digits=12,
                                                                        decimal_places=2))
@@ -12,6 +15,13 @@ class TransactionStatsSerializer(serializers.Serializer):
 
 
 class TransactionImportSerializer(serializers.ModelSerializer):
+    """
+    Импорт транзакций
+
+    Проверяет категорию на основе работы метода categorize()
+
+    """
+
     category = serializers.CharField(required=False)
 
     class Meta:

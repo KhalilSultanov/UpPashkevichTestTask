@@ -7,6 +7,12 @@ logger = logging.getLogger(__name__)
 
 
 def check_user_limits(user, amount, tx_datetime):
+    """
+    Проверяет превышение лимита на день у юзера по дате
+
+    Если траты превышают лимит, то логгирует предупреждение
+    """
+
     if not is_aware(tx_datetime):
         tx_datetime = make_aware(tx_datetime)
 

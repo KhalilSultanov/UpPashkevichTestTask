@@ -35,6 +35,12 @@ from users.models import UserModel
     ]
 )
 class TransactionStatsView(APIView):
+    """
+    Возврат статистики юзера за указанный период
+
+    Также проверка превышения дневного лимита юзера с последующим логгированием
+    """
+
     def get(self, request, user_id):
         date_from = parse_date(request.query_params.get("from"))
         date_to = parse_date(request.query_params.get("to"))
@@ -90,6 +96,12 @@ class TransactionStatsView(APIView):
     responses={201: {"detail": "Transactions imported successfully"}}
 )
 class TransactionImportView(APIView):
+    """
+    Импорт транзакций пользователя
+
+    Принимает JSON транзакций: валидирует и категоризирует
+    """
+
     def post(self, request):
         is_many = isinstance(request.data, list)
         serializer = TransactionImportSerializer(data=request.data, many=is_many)
