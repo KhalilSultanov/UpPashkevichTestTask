@@ -72,7 +72,6 @@ API доступно в браузере по адресу:
 
 ---
 
-## 🧠 Автор
+## Автор
 
-Khalil — [t.me/khalilS](https://t.me/khalilS)
-
+[**Khalil**](https://t.me/itskhalilS)
