@@ -1,9 +1,4 @@
-CATEGORY_KEYWORDS = {
-    "Food": ["mcdonalds", "kfc", "burger", "pizza", "restaurant", "eat", "coffee"],
-    "Transport": ["taxi", "uber", "bus", "metro", "train", "transport", "aero"],
-    "Entertainment": ["cinema", "netflix", "games", "movie", "theater"],
-    "Utilities": ["electricity", "water", "gas", "internet", "phone", "mobile"],
-}
+from transactions.services.constants import CATEGORY_KEYWORDS
 
 
 def categorize(description: str, merchant: str = "") -> str:
