@@ -14,14 +14,9 @@ RUN curl -sSL https://install.python-poetry.org | python3 - && \
 WORKDIR /app
 
 COPY pyproject.toml poetry.lock* /app/
-
 RUN poetry install --no-root --only main
 
 COPY . /app/
-
-ENV PYTHONUNBUFFERED=1
-
-COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 
 ENTRYPOINT ["/app/entrypoint.sh"]
