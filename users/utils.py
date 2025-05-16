@@ -1,7 +1,7 @@
 import logging
-from django.utils.timezone import make_aware, is_aware
 
 from django.db.models import Sum
+from django.utils.timezone import is_aware, make_aware
 
 logger = logging.getLogger(__name__)
 
@@ -17,4 +17,5 @@ def check_user_limits(user, amount, tx_datetime):
     new_day_total = day_total + amount
 
     if abs(new_day_total) > user.daily_limit:
-        logger.warning(f"[DAILY] Limit exceeded: {abs(new_day_total)} > {user.daily_limit} (User: {user.email})")
+        logger.warning(f"[DAILY] Limit exceeded:"
+                       f" {abs(new_day_total)} > {user.daily_limit} (User: {user.email})")

@@ -47,6 +47,10 @@ jobs:
           poetry config virtualenvs.create false
           poetry install --no-root
 
+      - name: Run Ruff linter
+        run: |
+          poetry run ruff check .
+
       - name: Apply migrations
         run: |
           poetry run python manage.py migrate --noinput

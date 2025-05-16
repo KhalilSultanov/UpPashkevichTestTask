@@ -4,14 +4,14 @@ from datetime import date
 from django.db.models import Sum
 from django.utils.dateparse import parse_date
 from drf_spectacular.types import OpenApiTypes
-from drf_spectacular.utils import extend_schema, OpenApiParameter
+from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import status
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from transactions.models import Transaction
-from transactions.serializers import TransactionStatsSerializer, TransactionImportSerializer
+from transactions.serializers import TransactionImportSerializer, TransactionStatsSerializer
 from users.models import UserModel
 
 
@@ -40,7 +40,7 @@ class TransactionStatsView(APIView):
         date_to = parse_date(request.query_params.get("to"))
 
         if not date_from or not date_to:
-            return Response({"detail": "Both 'from' and 'to' dates are required in YYYY-MM-DD format."},
+            return Response({"detail": "Both 'from' and 'to' dates are required in YYYY-MM-DD."},
                             status=status.HTTP_400_BAD_REQUEST)
 
         user = get_object_or_404(UserModel, id=user_id)
@@ -50,9 +50,12 @@ class TransactionStatsView(APIView):
             timestamp__date__lte=date_to
         )
 
-        total_spent = abs(transactions.filter(amount__lt=0).aggregate(Sum("amount"))["amount__sum"] or 0)
+        total_spent = abs(transactions.filter(amount__lt=0)
+                          .aggregate(Sum("amount"))["amount__sum"] or 0)
 
-        by_category_qs = transactions.filter(amount__lt=0).values("category").annotate(total=Sum("amount"))
+        by_category_qs = (transactions
+                          .filter(amount__lt=0).values("category").annotate(total=Sum("amount")))
+
         by_category = {entry["category"]: abs(entry["total"]) for entry in by_category_qs}
 
         days_count = (date_to - date_from).days + 1
@@ -68,7 +71,8 @@ class TransactionStatsView(APIView):
 
         if abs(daily_total) > user.daily_limit:
             logging.warning(
-                f"Превышение дневного лимита: User {user.name} потратил {abs(daily_total)} из {user.daily_limit} возможных за {today}"
+                f"Превышение дневного лимита: User {user.name} потратил {abs(daily_total)}"
+                f" из {user.daily_limit} возможных за {today}"
             )
         data = {
             "total_spent": abs(total_spent),
@@ -92,6 +96,7 @@ class TransactionImportView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response({"detail": "Transactions imported successfully"}, status=status.HTTP_201_CREATED)
+            return Response({"detail": "Transactions imported successfully"},
+                            status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

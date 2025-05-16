@@ -1,12 +1,13 @@
 from rest_framework import serializers
 
 from transactions.models import Transaction
-from transactions.services.categorizer import categorize, CATEGORY_KEYWORDS
+from transactions.services.categorizer import CATEGORY_KEYWORDS, categorize
 
 
 class TransactionStatsSerializer(serializers.Serializer):
     total_spent = serializers.DecimalField(max_digits=12, decimal_places=2)
-    by_category = serializers.DictField(child=serializers.DecimalField(max_digits=12, decimal_places=2))
+    by_category = serializers.DictField(child=serializers.DecimalField(max_digits=12,
+                                                                       decimal_places=2))
     daily_average = serializers.DecimalField(max_digits=12, decimal_places=2)
 
 
