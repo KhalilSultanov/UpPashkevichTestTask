@@ -90,7 +90,7 @@ DATABASES = {
         "NAME": config("DB_NAME", default="transactions_analytics_db"),
         "USER": config("DB_USER", default="postgres"),
         "PASSWORD": config("DB_PASSWORD", default="root"),
-        "HOST": config("DB_HOST", default="localhost"),
+        "HOST": config("DB_HOST", default="postgres"),
         "PORT": config("DB_PORT", default="5432"),
     }
 }
