@@ -34,6 +34,8 @@ API доступно в браузере по адресу:
 
 * API docs: [http://localhost:8000/api/docs](http://localhost:8000/api/docs)
 
+* Супер-пользователь для админки создастся автоматом (логин и пароль - admin)
+
 ## Запуск без Docker
 
 ### Установите зависимости Poetry
@@ -50,6 +52,7 @@ API доступно в браузере по адресу:
 
 ```bash
     poetry run python manage.py migrate
+    poetry run python manage.py createsuperuser
     poetry run python manage.py runserver
 ```
 
